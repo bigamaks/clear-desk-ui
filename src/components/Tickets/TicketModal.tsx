@@ -10,13 +10,12 @@ import type { Ticket } from "@/pages/Tickets";
 interface TicketModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (ticket: Ticket) => void;
+  onSave: (ticket: Omit<Ticket, "id" | "createdAt">) => void; // Updated to match Tickets component
   ticket?: Ticket;
 }
 
 const TicketModal = ({ isOpen, onClose, onSave, ticket }: TicketModalProps) => {
-  const [formData, setFormData] = useState<Ticket>({
-    id: "",
+  const [formData, setFormData] = useState<Omit<Ticket, "id" | "createdAt">>({
     title: "",
     description: "",
     status: "open",
@@ -27,10 +26,11 @@ const TicketModal = ({ isOpen, onClose, onSave, ticket }: TicketModalProps) => {
 
   useEffect(() => {
     if (ticket) {
-      setFormData(ticket);
+      // Extract only the fields we need for the form (exclude id and createdAt)
+      const { id, createdAt, ...ticketData } = ticket;
+      setFormData(ticketData);
     } else {
       setFormData({
-        id: "",
         title: "",
         description: "",
         status: "open",
@@ -101,7 +101,7 @@ const TicketModal = ({ isOpen, onClose, onSave, ticket }: TicketModalProps) => {
               <Label htmlFor="status">Status</Label>
               <Select
                 value={formData.status}
-                onValueChange={(value: "open" | "in-progress" | "closed") =>
+                onValueChange={(value: "open" | "in_progress" | "closed") => // Fixed: underscore
                   setFormData({ ...formData, status: value })
                 }
               >
@@ -110,7 +110,7 @@ const TicketModal = ({ isOpen, onClose, onSave, ticket }: TicketModalProps) => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="open">Open</SelectItem>
-                  <SelectItem value="in-progress">In Progress</SelectItem>
+                  <SelectItem value="in_progress">In Progress</SelectItem> {/* Fixed: underscore */}
                   <SelectItem value="closed">Closed</SelectItem>
                 </SelectContent>
               </Select>
@@ -140,7 +140,9 @@ const TicketModal = ({ isOpen, onClose, onSave, ticket }: TicketModalProps) => {
             <Button type="button" variant="outline" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit">Save</Button>
+            <Button type="submit">
+              {ticket ? "Update Ticket" : "Create Ticket"}
+            </Button>
           </div>
         </form>
       </DialogContent>

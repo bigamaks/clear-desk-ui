@@ -41,19 +41,19 @@ const Landing = () => {
         
         <div className="container relative mx-auto max-w-7xl px-4 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-fade-in">
-            Manage Your Tickets Seamlessly
+            Manage Your Tickets with Ease
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto animate-fade-in">
             A simple and powerful solution to create, track, and resolve tickets efficiently.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
             <Link to="/login">
-              <Button variant="outline" size="lg" className="bg-white/10 text-white border-white/30 hover:bg-white hover:text-primary backdrop-blur-sm">
+              <Button variant="outline" size="lg" className="bg-white/10 text-white border-white/30 hover:bg-white hover:text-primary backdrop-blur-sm ocus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
                 Login
               </Button>
             </Link>
             <Link to="/signup">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 ocus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600">
                 Get Started
               </Button>
             </Link>
